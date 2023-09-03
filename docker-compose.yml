@@ -1,0 +1,40 @@
+# https://tokuty.hatenablog.com/entry/2021/08/28/C%23__NET_docker%E3%81%A7%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89
+# https://learn.microsoft.com/en-us/dotnet/core/docker/build-container?tabs=windows
+# https://learn.microsoft.com/en-us/dotnet/core/tutorials/library-with-visual-studio-code?pivots=dotnet-7-0
+# https://learn.microsoft.com/en-us/dotnet/api/system.threading.mutex?view=net-7.0
+version: '3'
+services:
+  # UDPの受信
+  udp-receiver:
+    profiles:
+      - app
+    build: .
+    ports:
+      - "5001:5001"
+    tty: true
+    volumes:
+      - ./app:/app
+    command: bash -c "cd UDPReceiver && dotnet run"
+
+  # UDPの 送信
+  # udp-sender:
+  #   profiles:
+  #     - app
+  #   build: .
+  #   ports:
+  #     - "5002:5002"
+  #   tty: true
+  #   volumes:
+  #     - ./app:/app
+  #   command: bash -c "cd udp_sender && dotnet run"
+
+  # 開発用 
+  udp-develop:
+    profiles:
+      - develop
+    build: .
+    ports:
+      - "5003:5003"
+    tty: true
+    volumes:
+      - ./app:/app
